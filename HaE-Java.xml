@@ -25,12 +25,4 @@
     <extract>1</extract>  
     <enable>1</enable> 
   </item>  
-  <item>
-    <name>discuz</name>
-    <color>red</color>
-    <highlight>0</highlight>
-    <regex>discuz</regex>
-    <extract>1</extract>
-    <enable>1</enable>
-  </item>
 </config>
