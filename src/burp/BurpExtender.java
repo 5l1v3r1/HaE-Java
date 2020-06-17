@@ -173,12 +173,12 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 				int count = 0;
 				while (match.find()) {
 					if (match.groupCount() == 0) {
-						if (match.group().strip() != "") {
-							linesSet.add(match.group().strip());
+						if (match.group().trim() != "") {
+							linesSet.add(match.group().trim());
 						}
 					} else {
-						if (match.group(1).strip() != "") {
-							linesSet.add(match.group(1).strip());
+						if (match.group(1).trim() != "") {
+							linesSet.add(match.group(1).trim());
 						}
 					}
 					count++;
@@ -186,7 +186,7 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 				if (count > 0) {
 					if (item.getExtract() == 1) {
 						String lines = new ArrayList<String>(linesSet).toString();
-						markInfoSet.add("-" + item.getName().strip() + "-" + ":\r\n" + lines.strip());
+						markInfoSet.add("-" + item.getName().trim() + "-" + ":\r\n" + lines.trim());
 					}
 					matchItemList.add(item);
 				}
@@ -197,7 +197,7 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 		}
 		matchInfo.setItemList(matchItemList);
 		String markText = new ArrayList<String>(markInfoSet).toString();
-		markText = markText.strip().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(", ", "\r\n");
+		markText = markText.trim().replaceAll("\\[", "").replaceAll("\\]", "").replaceAll(", ", "\r\n");
 		matchInfo.setMarkText(markText);
 		putInCache(content, matchInfo);
 		return matchInfo;
@@ -418,7 +418,7 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 		colorLabel.setBounds(10, 213, 46, 14);
 		setPanel.add(colorLabel);
 
-		JComboBox<Object> colorComboBox = new JComboBox<Object>();
+		final JComboBox<Object> colorComboBox = new JComboBox<Object>();
 		colorComboBox.setModel(new DefaultComboBoxModel<Object>(
 				new String[] { "red", "orange", "yellow", "green", "cyan", "blue", "pink", "magenta", "gray" }));
 		colorComboBox.setBounds(84, 209, 86, 22);
@@ -428,7 +428,7 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 		extractLabel.setBounds(10, 257, 46, 14);
 		setPanel.add(extractLabel);
 
-		JCheckBox extractCheckBox = new JCheckBox("");
+		final JCheckBox extractCheckBox = new JCheckBox("");
 		extractCheckBox.setBounds(85, 248, 97, 23);
 		setPanel.add(extractCheckBox);
 
@@ -436,7 +436,7 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 		highlightLabel.setBounds(10, 301, 46, 14);
 		setPanel.add(highlightLabel);
 
-		JCheckBox highlightCheckBox = new JCheckBox("");
+		final JCheckBox highlightCheckBox = new JCheckBox("");
 		highlightCheckBox.setBounds(85, 292, 97, 23);
 		setPanel.add(highlightCheckBox);
 
@@ -472,7 +472,7 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 		scrollPanel.setBounds(0, 61, 1300, 550);
 		configPanel.add(scrollPanel);
 
-		JTextArea configTextArea = new JTextArea();
+		final JTextArea configTextArea = new JTextArea();
 		scrollPanel.setViewportView(configTextArea);
 
 		JButton loadButton = new JButton("load");
@@ -525,7 +525,7 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 			if (itemNodeList != null) {
 				for (Iterator<Node> i = itemNodeList.iterator(); i.hasNext();) {
 					Node itemNode = (Node) i.next();
-					if (Integer.parseInt(itemNode.valueOf("enable").strip()) == 1) {
+					if (Integer.parseInt(itemNode.valueOf("enable").trim()) == 1) {
 						Item item = new Item();
 						item.setName(itemNode.valueOf("name"));
 						item.setColor(itemNode.valueOf("color"));
@@ -582,7 +582,7 @@ public class BurpExtender implements IBurpExtender, IHttpListener, IMessageEdito
 			Scanner scanner = new Scanner(new File(".", configPath));
 			while (scanner.hasNextLine()) {
 				String line = scanner.nextLine();
-				config = config + line.strip();
+				config = config + line.trim();
 			}
 			scanner.close();
 		} catch (FileNotFoundException e) {
